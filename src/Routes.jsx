@@ -12,6 +12,7 @@ import {
   FormLogin,
   FormRegister,
 } from "./component/layout";
+
 import {
   Article,
   Home,
@@ -20,7 +21,12 @@ import {
   TableUser,
   TableCar,
   TableArticle,
+  TableRole,
+  FormRole,
+  TableCarType,
+  FormCarType,
 } from "./views";
+
 import { DataContext } from "./helpers";
 import { ErrorPage } from "./component/common";
 
@@ -94,6 +100,24 @@ function Routes() {
             {
               path: "/admin/users",
               element: <TableUser />,
+            },
+            {
+              path: "/admin/role",
+              element: (
+                <>
+                  <TableRole />
+                  <FormRole />
+                </>
+              ),
+            },
+            {
+              path: "/admin/car_type",
+              element: (
+                <>
+                  <TableCarType />
+                  <FormCarType />
+                </>
+              ),
             },
             {
               path: "/admin/car",

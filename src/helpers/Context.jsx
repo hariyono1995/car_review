@@ -14,9 +14,17 @@ export const DataProvider = (props) => {
     error: null,
   });
 
+  const [isForm, setIsForm] = useState(false);
+  const [currentId, setCurrentId] = useState(null);
+
   return (
     <DataContext.Provider
       value={{
+        setIsForm,
+        setCurrentId,
+        isForm,
+        currentId,
+
         message,
         setMessage,
         data,

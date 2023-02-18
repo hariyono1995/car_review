@@ -29,8 +29,8 @@ function App() {
   return (
     <>
       <ToastContainer autoClose={2000} />
-      {/* <Routes /> */}
-      <CardTest />
+      <Routes />
+      {/* <CardTest /> */}
       {/* <Table /> */}
     </>
   );
