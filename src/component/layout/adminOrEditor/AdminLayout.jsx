@@ -11,7 +11,7 @@ function AdminLayout() {
       </header>
 
       <main>
-        <div className="container pt-4 vh-70">
+        <div className="container pt-4 vh-70 mt-5">
           <Outlet />
         </div>
       </main>

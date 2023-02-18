@@ -17,6 +17,9 @@ import {
   Home,
   Profile,
   FormProfile,
+  TableUser,
+  TableCar,
+  TableArticle,
 } from "./views";
 import { DataContext } from "./helpers";
 import { ErrorPage } from "./component/common";
@@ -32,6 +35,7 @@ function Routes() {
     {
       path: "/",
       element: <AllRoleLayout />,
+
       children: [
         {
           path: "/",
@@ -67,23 +71,33 @@ function Routes() {
     },
     {
       path: "/admin",
-      element: <AdminLayout />,
+      element:
+        isLoggedIn && userLogin?.role_name != "customer" ? (
+          <AdminLayout />
+        ) : (
+          <Navigate to={"/auth/login"} />
+        ),
+
       children: [
         {
-          path: "/admin/customer",
-          element: <h2>customer all</h2>,
+          index: true,
+          element: <TableUser />,
         },
         {
-          path: "/admin/admin",
-          element: <h2>Admin all</h2>,
-        },
-        {
-          path: "/admin/editor",
-          element: <h2>all editor</h2>,
-        },
-        {
-          path: "/admin/:user_id",
-          element: <h2>admin get user by id</h2>,
+          children: [
+            {
+              path: "/admin/users",
+              element: <TableUser />,
+            },
+            {
+              path: "/admin/car",
+              element: <TableCar />,
+            },
+            {
+              path: "/admin/articles",
+              element: <TableArticle />,
+            },
+          ],
         },
       ],
     },
@@ -110,13 +124,7 @@ function Routes() {
     },
     {
       path: "*",
-      element: <BlankLayout />,
-      children: [
-        {
-          path: "*",
-          element: <ErrorPage />,
-        },
-      ],
+      element: <ErrorPage />,
     },
   ]);
 

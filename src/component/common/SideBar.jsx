@@ -5,12 +5,12 @@ import { NavLink, useLocation } from "react-router-dom";
 const sideBarNav = [
   {
     path: "/admin/users",
-    name: "User",
+    name: "Users",
     icon: <i class="fas fa-users"></i>,
   },
   {
     path: "/admin/role",
-    name: "Role",
+    name: "Roles",
     icon: <i class="fas fa-chalkboard-teacher"></i>,
   },
   {
@@ -25,7 +25,7 @@ const sideBarNav = [
   },
   {
     path: "/admin/car_type",
-    name: "Car Type",
+    name: "Car Types",
     icon: <i class="fas fa-list"></i>,
   },
 ];

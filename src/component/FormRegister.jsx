@@ -10,7 +10,7 @@ const initialValue = {
   user_username: "",
   user_email: "",
   user_password: "",
-  role_role_id: 3,
+  role_role_id: 2,
 };
 
 const validate = yup.object({

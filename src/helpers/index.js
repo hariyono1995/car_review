@@ -9,11 +9,13 @@ import {
   handleLogout,
   formatDate,
   base_url,
+  formatCurrency,
 } from "./utils";
 
 export {
   base_url,
   formatDate,
+  formatCurrency,
   DataContext,
   DataProvider,
   getData,

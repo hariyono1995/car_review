@@ -4,7 +4,7 @@ import { getUserLoginLocalStorage } from "./utils";
 export const DataContext = createContext();
 
 export const DataProvider = (props) => {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
   const [userLogin, setUserLogin] = useState(
     getUserLoginLocalStorage()
   );

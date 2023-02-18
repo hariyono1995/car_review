@@ -4,6 +4,7 @@ import BlankLayout from "./BlankLayout";
 import FormLogin from "../FormLogin";
 import FormRegister from "../FormRegister";
 import FormChangePassword from "../FormChangePassword";
+import { TheadOrTfoot } from "../base/Table";
 
 export {
   AllRoleLayout,
@@ -12,4 +13,5 @@ export {
   FormLogin,
   FormRegister,
   FormChangePassword,
+  TheadOrTfoot,
 };

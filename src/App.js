@@ -2,8 +2,9 @@ import { useContext, useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 
 import Routes from "./Routes";
-import { DataContext } from "./helpers";
+import { DataContext, getHeaders } from "./helpers";
 import "./App.css";
+import Table from "./component/base/Table";
 
 function App() {
   const { message, setMessage } = useContext(DataContext);
@@ -23,10 +24,12 @@ function App() {
   }
 
   console.log("message apps ", message);
+
   return (
     <>
       <ToastContainer autoClose={2000} />
       <Routes />
+      {/* <Table /> */}
     </>
   );
 }

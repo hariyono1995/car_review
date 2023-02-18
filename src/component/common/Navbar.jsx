@@ -26,8 +26,8 @@ function Navbar() {
   }
 
   const buttonSidebar =
-    userLogin?.user_role === "admin" ||
-    userLogin?.user_role === "editor" ? (
+    userLogin?.role_name === "admin" ||
+    userLogin?.role_name === "editor" ? (
       <button
         className="navbar-toggler"
         type="button"
@@ -47,11 +47,9 @@ function Navbar() {
     userLogin?.role_name === "editor" ? (
       <li className="nav-item">
         <NavLink
-          to={"/admin/dasbord"}
+          to={"/admin"}
           className={`nav-link me-3 me-lg-0 ${
-            currentLocation === "/admin/dasbord"
-              ? "active"
-              : ""
+            currentLocation === "/admin" ? "active" : ""
           }`}
         >
           Dasboard
@@ -134,7 +132,8 @@ function Navbar() {
         className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
       >
         <div className="container">
-          {buttonSidebar}
+          {/* {buttonSidebar} */}
+
           <Link to={"/"} className="navbar-brand">
             <img
               src="https://venom-assets.edmunds-media.com/e20178b235b6f0e24fff96df81b22919.svg"

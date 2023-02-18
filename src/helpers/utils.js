@@ -17,11 +17,11 @@ async function postData(pathUrl, payload, header = null) {
   );
 }
 
-async function deleteData(pathUrl, payload, header = null) {
+async function deleteData(pathUrl, header = null) {
   console.log(`${base_url}/${pathUrl}`);
   return axios.delete(
     `${base_url}/${pathUrl}`,
-    payload,
+
     header
   );
 }
@@ -51,8 +51,17 @@ function formatDate(date) {
     dateStyle: "long",
   }).format(date);
 }
+
+function formatCurrency(currency) {
+  return new Intl.NumberFormat(navigator.language, {
+    style: "currency",
+    currency: "IDR",
+  }).format(currency);
+}
+
 export {
   formatDate,
+  formatCurrency,
   getData,
   postData,
   deleteData,

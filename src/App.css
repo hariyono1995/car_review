@@ -88,6 +88,7 @@ body {
 
 #oopss {
   background: #222;
+  /* background: #ccc; */
   text-align: center;
   margin-bottom: 50px;
   font-weight: 400;
@@ -243,4 +244,10 @@ body {
   -moz-transform: scale(1);
   transform: scale(1);
   transition: all 0.5s ease-out;
+}
+
+/* label modal form */
+.label-modal {
+  font-size: 15px;
+  font-weight: 600;
 }

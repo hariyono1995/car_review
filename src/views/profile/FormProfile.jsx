@@ -72,7 +72,11 @@ function FormProfile() {
   });
 
   return (
-    <div className="container rounded bg-white mt-5 mb-5">
+    <div
+      className={`container rounded bg-white  mb-5 ${
+        userLogin?.role_name === "customer" && "mt-5"
+      }`}
+    >
       <div className="row">
         <div className="col-md-3 border-right">
           <div className="d-flex flex-column align-items-center text-center p-3 py-5">
