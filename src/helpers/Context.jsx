@@ -5,6 +5,7 @@ export const DataContext = createContext();
 
 export const DataProvider = (props) => {
   const [data, setData] = useState([]);
+  const [oneData, setOneData] = useState({});
   const [userLogin, setUserLogin] = useState(
     getUserLoginLocalStorage()
   );
@@ -20,6 +21,8 @@ export const DataProvider = (props) => {
         setMessage,
         data,
         setData,
+        oneData,
+        setOneData,
         userLogin,
         setUserLogin,
       }}

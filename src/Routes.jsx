@@ -81,7 +81,13 @@ function Routes() {
       children: [
         {
           index: true,
-          element: <TableUser />,
+          element:
+            isLoggedIn &&
+            userLogin?.role_name === "admin" ? (
+              <TableUser />
+            ) : (
+              <TableArticle />
+            ),
         },
         {
           children: [

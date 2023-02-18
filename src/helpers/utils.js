@@ -35,11 +35,8 @@ async function updateData(pathUrl, payload, header = null) {
   );
 }
 
-function setLocalStorage(payload) {
-  localStorage.setItem(
-    "userLogin",
-    JSON.stringify(payload)
-  );
+function setLocalStorage(key, payload) {
+  localStorage.setItem(key, JSON.stringify(payload));
 }
 
 function getUserLoginLocalStorage() {

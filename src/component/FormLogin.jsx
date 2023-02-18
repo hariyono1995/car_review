@@ -45,7 +45,8 @@ function FormLogin() {
             success: "Loggin successfully",
             error: null,
           });
-          setLocalStorage({
+
+          setLocalStorage("userLogin", {
             ...res.data.payload,
             token: res.data.token,
           });

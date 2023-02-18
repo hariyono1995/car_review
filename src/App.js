@@ -5,6 +5,7 @@ import Routes from "./Routes";
 import { DataContext, getHeaders } from "./helpers";
 import "./App.css";
 import Table from "./component/base/Table";
+import CardTest from "./component/base/CardTest";
 
 function App() {
   const { message, setMessage } = useContext(DataContext);
@@ -28,7 +29,8 @@ function App() {
   return (
     <>
       <ToastContainer autoClose={2000} />
-      <Routes />
+      {/* <Routes /> */}
+      <CardTest />
       {/* <Table /> */}
     </>
   );

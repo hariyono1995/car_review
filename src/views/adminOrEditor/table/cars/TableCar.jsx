@@ -9,11 +9,13 @@ import {
   deleteData,
   formatCurrency,
   getData,
+  setLocalStorage,
 } from "../../../../helpers";
 import { TheadOrTfoot } from "../../../../component/base";
 import { useHeaders } from "../../../../helpers/hooks";
 import Swal from "sweetalert2";
 import FormCreateCar from "./FormCreateCar";
+import FormUpdateCar from "./FormUpdateCar";
 
 const titleColumns = [
   "#",
@@ -26,7 +28,7 @@ const titleColumns = [
 ];
 
 function TableCar() {
-  const { data, setData, setMessage } =
+  const { data, setData, oneData, setOneData } =
     useContext(DataContext);
   const [mounted, setMounted] = useState(false);
   const headers = useHeaders();
@@ -55,18 +57,36 @@ function TableCar() {
           .then((res) => {
             console.log(res.data);
 
-            Swal.fire(
-              "Deleted!",
-              res.data.deleteCar,
-              "success"
-            );
+            // setMessage({
+            //   error: null,
+            //   success: res.data.message,
+            // });
           })
           .catch((error) => console.log(error));
+
+        Swal.fire(
+          "Deleted!",
+          "Your file has been deleted.",
+          "success"
+        );
+
         setData((prev) =>
           prev.filter((c) => c.car_id != car_id)
         );
       }
     });
+  }
+
+  function handleSetOneData(car_id) {
+    getData(`car/${car_id}`, headers)
+      .then((res) => {
+        console.log("res handle set one data", res);
+        setOneData({});
+        setOneData(res.data.car_name_deleted);
+      })
+      .catch((er) => console.log(er));
+
+    setLocalStorage("car_id", car_id);
   }
 
   const theadOrtfoot = (
@@ -75,6 +95,8 @@ function TableCar() {
 
   return (
     <>
+      {/*start form modal create and update car  */}
+
       <div
         className="modal fade"
         id="createcar"
@@ -89,7 +111,7 @@ function TableCar() {
                 className="modal-title"
                 id="exampleModalLabel1"
               >
-                Form add car
+                Form Add Car
               </h5>
 
               <button
@@ -106,6 +128,40 @@ function TableCar() {
           </div>
         </div>
       </div>
+
+      <div
+        className="modal fade"
+        id="updatecar"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel1"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog z-9999">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5
+                className="modal-title"
+                id="exampleModalLabel1"
+              >
+                Form Update Car
+              </h5>
+
+              <button
+                type="button"
+                className="btn-close"
+                data-mdb-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <div className="modal-body">
+              <FormUpdateCar />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/*end form modal create and update car  */}
 
       <div className="my-3 float-end">
         <button
@@ -162,6 +218,11 @@ function TableCar() {
                         type="button"
                         className="btn btn-warning me-3"
                         data-mdb-color="dark"
+                        data-mdb-toggle="modal"
+                        data-mdb-target="#updatecar"
+                        onClick={() =>
+                          handleSetOneData(car_id)
+                        }
                       >
                         <i className="fas fa-edit me-2"></i>
                         Edit
