@@ -3,10 +3,10 @@ import React from "react";
 function CardTest() {
   return (
     <>
-      <div class="container">
+      <div class="container mb-4">
         <section
-          class="mx-auto my-5"
-          style={{ maxWidth: "23rem" }}
+          class="mx-auto"
+          style={{ maxWidth: "43rem" }}
         >
           <div class="card">
             <div class="card-body d-flex flex-row">

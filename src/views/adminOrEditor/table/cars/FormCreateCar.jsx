@@ -12,6 +12,7 @@ import {
   postData,
 } from "../../../../helpers";
 import { useHeaders } from "../../../../helpers/hooks";
+import { useNavigate } from "react-router-dom";
 
 const initialValue = {
   car_price: 0,
@@ -32,8 +33,9 @@ const validate = yup.object({
 function FormCreateCar() {
   const [mounted, setMounted] = useState(false);
   const [cartypes, setCartypes] = useState([]);
-  const { setMessage } = useContext(DataContext);
+  const { setMessage, setData } = useContext(DataContext);
   const headers = useHeaders();
+  const navigateTo = useNavigate();
 
   useEffect(() => {
     getData("car_type", headers)
@@ -56,16 +58,22 @@ function FormCreateCar() {
           payload.car_type_car_type_id
         ),
       };
+
+      // console.clear();
+      // console.log(payload);
+
       await postData("car", payload, headers)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
 
           setMessage({
             error: null,
             success: res.data.message,
           });
           formik.resetForm();
-          window.location.reload();
+
+          navigateTo("/admin/car");
+          // window.location.reload();
         })
         .catch((error) => {
           console.log(error);

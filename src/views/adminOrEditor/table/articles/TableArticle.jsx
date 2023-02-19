@@ -24,7 +24,14 @@ const titleColumns = [
 ];
 
 function TableArticle() {
-  const { data, setData } = useContext(DataContext);
+  const {
+    data,
+    setData,
+    setOneData,
+    oneData,
+    setCurrentId,
+    currentId,
+  } = useContext(DataContext);
   const [carTypes, setCarTypes] = useState([]);
   const [mounted, setMounted] = useState(false);
   const headers = useHeaders();
@@ -71,6 +78,21 @@ function TableArticle() {
     });
   }
 
+  function handleSetOneData(article_id) {
+    setOneData({});
+    getData(`article/admin/${article_id}`, headers)
+      .then((res) => {
+        console.log(res.data, " article by id");
+        setOneData(res.data);
+        setCurrentId(article_id);
+      })
+      .catch((er) => console.log(er));
+  }
+
+  console.log(
+    [oneData, currentId],
+    oneData["article_id"] === currentId
+  );
   const theadOrtfoot = (
     <TheadOrTfoot titleColumns={titleColumns} />
   );
@@ -111,37 +133,40 @@ function TableArticle() {
         </div>
       </div>
 
-      <div
-        className="modal fade"
-        id="updatecar"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel1"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog z-9999">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5
-                className="modal-title"
-                id="exampleModalLabel1"
-              >
-                Form Update Car
-              </h5>
+      {oneData && currentId === oneData["article_id"] && (
+        <div
+          className="modal fade"
+          id="updataActicle"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel1"
+          aria-hidden="true"
+        >
+          <div className="modal-dialog z-9999">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5
+                  className="modal-title"
+                  id="exampleModalLabel1"
+                >
+                  Form Update Article
+                </h5>
 
-              <button
-                type="button"
-                className="btn-close"
-                data-mdb-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
+                <button
+                  type="button"
+                  className="btn-close"
+                  data-mdb-dismiss="modal"
+                  aria-label="Close"
+                  onClick={() => setOneData({})}
+                ></button>
+              </div>
 
-            <div className="modal-body">
-              <FormUpdateArticle />
+              <div className="modal-body">
+                <FormUpdateArticle />
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/*end form modal create and update car  */}
 
@@ -193,7 +218,7 @@ function TableArticle() {
 
                     <td>{car_name}</td>
 
-                    <td style={{ width: "40%" }}>
+                    <td style={{ width: "30%" }}>
                       {article_content}
                     </td>
 
@@ -206,6 +231,11 @@ function TableArticle() {
                         type="button"
                         className="btn btn-warning me-3"
                         data-mdb-color="dark"
+                        data-mdb-toggle="modal"
+                        data-mdb-target="#updataActicle"
+                        onClick={() =>
+                          handleSetOneData(article_id)
+                        }
                       >
                         <i className="fas fa-edit me-2"></i>{" "}
                         Edit

@@ -1,7 +1,8 @@
 import axios from "axios";
 
 var base_url =
-  "https://final-beckend-nlih030xc-hariyono1995.vercel.app";
+  // "https://final-beckend-nlih030xc-hariyono1995.vercel.app";
+  "https://final-beckend-64xyn1n13-hariyono1995.vercel.app";
 
 async function getData(pathUrl, header = null) {
   console.log(`${base_url}/${pathUrl}`);

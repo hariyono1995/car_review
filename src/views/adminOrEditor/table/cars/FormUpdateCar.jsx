@@ -33,14 +33,15 @@ const validate = yup.object({
 function FormUpdateCar() {
   const [mounted, setMounted] = useState(false);
   const [cartypes, setCartypes] = useState([]);
+  const [isCloseModal, setIsCloseModal] = useState(false);
   const [car, setCar] = useState({});
-  const { setMessage, oneData } = useContext(DataContext);
+  const { setMessage, oneData, message } =
+    useContext(DataContext);
   const headers = useHeaders();
 
   useEffect(() => {
     getData("car_type", headers)
       .then((res) => {
-        console.log(res);
         setCartypes(res.data.data);
         setMounted(true);
       })
@@ -48,44 +49,75 @@ function FormUpdateCar() {
   }, []);
 
   const formik = useFormik({
-    initialValues: car,
+    initialValues: oneData,
     validationSchema: validate,
 
     onSubmit: async (payload) => {
-      console.log(payload);
-      formik.resetForm();
-      // payload = {
-      //   ...payload,
-      //   car_type_car_type_id: parseInt(
-      //     payload.car_type_car_type_id
-      //   ),
-      // };
-      // await updateData("car", payload, headers)
-      //   .then((res) => {
-      //     console.log(res);
+      console.clear();
+      console.log("payload ", payload);
 
-      //     setMessage({
-      //       error: null,
-      //       success: res.data.message,
-      //     });
-      //     formik.resetForm();
-      //     window.location.reload();
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
+      const {
+        car_id,
+        car_image_url,
+        car_name,
+        car_price,
+        car_stock,
+        car_type,
+      } = payload;
 
-      //     setMessage({
-      //       error: error.response.data.message,
-      //       success: null,
-      //     });
-      //   });
+      let typeCarId;
+      if (payload["car_type_car_type_id"] === undefined) {
+        typeCarId = cartypes.filter(
+          (ct) =>
+            ct.car_type_name === car_type.car_type_name
+        )[0]["car_type_id"];
+      }
+
+      if (payload["car_type_car_type_id"]) {
+        typeCarId = parseInt(
+          payload["car_type_car_type_id"]
+        );
+      }
+      const refactorPayload = {
+        car_name: car_name,
+        car_image_url: car_image_url,
+        car_price: parseInt(car_price),
+        car_stock: parseInt(car_stock),
+        car_type_car_type_id: typeCarId,
+      };
+
+      // console.log("refactor payload ", refactorPayload);
+      await updateData(
+        `car/${payload.car_id}`,
+        refactorPayload,
+        headers
+      )
+        .then((res) => {
+          console.log(res);
+
+          setMessage({
+            error: null,
+            success: res.data.message,
+          });
+          // formik.resetForm();
+          setIsCloseModal(true);
+          // window.location.reload();
+        })
+        .catch((error) => {
+          console.log(error);
+
+          setMessage({
+            error: error.response.data.message,
+            success: null,
+          });
+        });
     },
   });
 
   // console.clear();
-  console.log("update data form", oneData.car_name);
+  // console.log("update data form", oneData?.car_name);
   return (
-    Object.keys(oneData).length > 0 && (
+    mounted && (
       <form onSubmit={formik.handleSubmit}>
         <div className="mb-1">
           <label
@@ -100,7 +132,7 @@ function FormUpdateCar() {
             className="form-control form-control-sm"
             id="car_name"
             required
-            defaultValue={oneData.car_name}
+            // defaultValue={oneData?.car_name}
             {...formik.getFieldProps("car_name")}
           />
         </div>
@@ -161,6 +193,10 @@ function FormUpdateCar() {
             {mounted &&
               cartypes.map((type) => (
                 <option
+                  selected={
+                    oneData.car_type.car_type_name ===
+                      type.car_type_name && true
+                  }
                   key={type.car_type_id}
                   value={type.car_type_id}
                 >
@@ -206,6 +242,8 @@ function FormUpdateCar() {
 
         <button
           type="submit"
+          aria-label={"Close"}
+          data-mdb-dismiss={isCloseModal && "modal"}
           className="btn btn-warning w-100 mt-3"
         >
           update

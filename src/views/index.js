@@ -1,5 +1,3 @@
-import Home from "./Home";
-import Article from "./Article";
 import FormProfile from "./profile/FormProfile";
 import Profile from "./profile/Profile";
 import TableUser from "./adminOrEditor/table/users/TableUser";
@@ -11,10 +9,13 @@ import {
   FormCarType,
   TableCarType,
 } from "./adminOrEditor/table/CarType";
-
+import Home from "./home/Home";
+import Article from "./article/Article";
+import DetailArticle from "./article/DetailArticle";
 export {
   Home,
   Article,
+  DetailArticle,
   FormProfile,
   Profile,
   TableUser,

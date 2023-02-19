@@ -251,3 +251,12 @@ body {
   font-size: 15px;
   font-weight: 600;
 }
+
+/* article */
+
+.content-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}

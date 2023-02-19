@@ -6,6 +6,7 @@ import { DataContext, getHeaders } from "./helpers";
 import "./App.css";
 import Table from "./component/base/Table";
 import CardTest from "./component/base/CardTest";
+import Backup from "./views/home/Backup";
 
 function App() {
   const { message, setMessage } = useContext(DataContext);
@@ -32,6 +33,7 @@ function App() {
       <Routes />
       {/* <CardTest /> */}
       {/* <Table /> */}
+      {/* <Backup /> */}
     </>
   );
 }

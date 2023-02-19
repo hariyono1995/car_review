@@ -25,6 +25,7 @@ import {
   FormRole,
   TableCarType,
   FormCarType,
+  DetailArticle,
 } from "./views";
 
 import { DataContext } from "./helpers";
@@ -51,8 +52,23 @@ function Routes() {
           path: "/article",
           element: <Article />,
         },
+        {
+          path: "/articles/:id",
+          element: <DetailArticle />,
+        },
       ],
     },
+
+    // {
+    //   path: "/articles",
+    //   element: <BlankLayout />,
+    //   children: [
+    //     {
+    //       path: "/articles/:id",
+    //       element: <DetailArticle />,
+    //     },
+    //   ],
+    // },
     {
       path: "/auth",
       element: <BlankLayout />,

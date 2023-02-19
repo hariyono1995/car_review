@@ -28,8 +28,14 @@ const titleColumns = [
 ];
 
 function TableCar() {
-  const { data, setData, oneData, setOneData } =
-    useContext(DataContext);
+  const {
+    data,
+    setData,
+    setOneData,
+    oneData,
+    setCurrentId,
+    currentId,
+  } = useContext(DataContext);
   const [mounted, setMounted] = useState(false);
   const headers = useHeaders();
 
@@ -78,15 +84,15 @@ function TableCar() {
   }
 
   function handleSetOneData(car_id) {
-    getData(`car/${car_id}`, headers)
+    getData(`car`, headers)
       .then((res) => {
-        console.log("res handle set one data", res);
-        setOneData({});
-        setOneData(res.data.car_name_deleted);
+        const car = res.data.data.filter(
+          (c) => car_id === c.car_id
+        );
+        setOneData(car[0]);
+        setCurrentId(car_id);
       })
       .catch((er) => console.log(er));
-
-    setLocalStorage("car_id", car_id);
   }
 
   const theadOrtfoot = (
@@ -129,37 +135,40 @@ function TableCar() {
         </div>
       </div>
 
-      <div
-        className="modal fade"
-        id="updatecar"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel1"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog z-9999">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5
-                className="modal-title"
-                id="exampleModalLabel1"
-              >
-                Form Update Car
-              </h5>
+      {oneData && currentId === oneData["car_id"] && (
+        <div
+          className="modal fade"
+          id="updatecar"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel1"
+          aria-hidden="true"
+        >
+          <div className="modal-dialog z-9999">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5
+                  className="modal-title"
+                  id="exampleModalLabel1"
+                >
+                  Form Update Car
+                </h5>
 
-              <button
-                type="button"
-                className="btn-close"
-                data-mdb-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
+                <button
+                  type="button"
+                  className="btn-close"
+                  data-mdb-dismiss="modal"
+                  aria-label="Close"
+                  onClick={() => setOneData({})}
+                ></button>
+              </div>
 
-            <div className="modal-body">
-              <FormUpdateCar />
+              <div className="modal-body">
+                <FormUpdateCar />
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/*end form modal create and update car  */}
 

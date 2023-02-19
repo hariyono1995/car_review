@@ -14,62 +14,45 @@ import {
 } from "../../../../helpers";
 import { useHeaders } from "../../../../helpers/hooks";
 
-let initialValue = {
-  car_price: 0,
-  car_image_url: "",
-  car_name: "",
-  car_stock: 0,
-  car_type_car_type_id: 1,
-};
-
-const validate = yup.object({
-  car_image_url: yup
-    .string()
-    .url("Invalid url")
-    .required("Required"),
-  car_name: yup.string().required("Required"),
-});
-
 function FormUpdateArticle() {
   const [mounted, setMounted] = useState(false);
-  const [cartypes, setCartypes] = useState([]);
-  const [car, setCar] = useState({});
-  const { setMessage } = useContext(DataContext);
+  const [car, setCar] = useState([]);
+  const { setMessage, setData, data, oneData, currentId } =
+    useContext(DataContext);
   const headers = useHeaders();
 
   useEffect(() => {
-    getData("car_type", headers)
+    getData("car", headers)
       .then((res) => {
         console.log(res);
-        setCartypes(res.data.data);
+        setCar(res.data.data);
         setMounted(true);
       })
       .catch((e) => console.log(e));
   }, []);
 
   const formik = useFormik({
-    initialValues: car,
-    validationSchema: validate,
+    initialValues: oneData,
 
     onSubmit: async (payload) => {
-      console.log(payload);
-      formik.resetForm();
       // payload = {
       //   ...payload,
-      //   car_type_car_type_id: parseInt(
-      //     payload.car_type_car_type_id
-      //   ),
+      //   car_car_id: parseInt(payload.car_car_id),
       // };
-      // await updateData("car", payload, headers)
+
+      console.log("update article ", payload);
+      // await updateData("article", payload, headers)
       //   .then((res) => {
+      //     console.clear();
       //     console.log(res);
 
       //     setMessage({
       //       error: null,
       //       success: res.data.message,
       //     });
+
       //     formik.resetForm();
-      //     window.location.reload();
+      //     // window.location.reload();
       //   })
       //   .catch((error) => {
       //     console.log(error);
@@ -82,123 +65,55 @@ function FormUpdateArticle() {
     },
   });
 
-  // console.clear();
-  console.log("update data form", initialValue);
   return (
+    // oneData &&
+    // currentId === oneData["article_id"] &&
     <form onSubmit={formik.handleSubmit}>
       <div className="mb-1">
         <label
-          htmlFor="car_name"
+          htmlFor="article_content"
           className="form-label   label-modal"
         >
-          Name
+          Content
         </label>
 
-        <input
+        <textarea
           type="text"
           className="form-control form-control-sm"
-          id="car_name"
+          id="article_content"
+          rows={5}
+          // maxLength={1000}
           required
-          defaultValue={car.car_name}
-          {...formik.getFieldProps("car_name")}
+          {...formik.getFieldProps("article_content")}
         />
-      </div>
-
-      <div className="row mb-2">
-        <div className=" col-6">
-          <label
-            htmlFor="car_price"
-            className="form-label  label-modal"
-          >
-            Price
-          </label>
-
-          <input
-            type="number"
-            className="form-control form-control-sm"
-            id="car_price"
-            required
-            {...formik.getFieldProps("car_price")}
-          />
-        </div>
-
-        <div className="col-6">
-          <label
-            htmlFor="car_stock"
-            className="form-label  label-modal text-sm"
-          >
-            Stock
-          </label>
-
-          <input
-            type="number"
-            className="form-control form-control-sm"
-            id="car_stock"
-            required
-            {...formik.getFieldProps("car_stock")}
-          />
-        </div>
       </div>
 
       <div className="mb-1">
         <label
           className="labels d-block  mb-2 label-modal"
-          htmlFor="car_type_car_type_id"
+          htmlFor="car_car_id"
         >
-          Car Type
+          Car
         </label>
 
         <select
           className="select form-control form-control-sm"
           required
-          id="profile_gender"
-          {...formik.getFieldProps("car_type_car_type_id")}
+          id="car_car_id"
+          {...formik.getFieldProps("car_car_id")}
         >
-          <option selected>---select gender---</option>
+          <option selected>---select car---</option>
           {mounted &&
-            cartypes.map((type) => (
+            car.map((c) => (
               <option
-                key={type.car_type_id}
-                value={type.car_type_id}
+                key={c.car_id}
+                value={c.car_id}
+                selected={oneData.car_car_id === c.car_id}
               >
-                {type.car_type_name}
+                {c.car_name}
               </option>
             ))}
         </select>
-      </div>
-
-      <div className="mb-1">
-        <label
-          htmlFor="car_image_url"
-          className="form-label  label-modal"
-        >
-          Image url
-        </label>
-
-        {formik.values.car_image_url?.length > 0 && (
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <img
-              src={formik.values.car_image_url}
-              alt="image preview"
-              width={100}
-              className="rounded hover- mb-2"
-            />
-          </div>
-        )}
-
-        <input
-          type="text"
-          className="form-control form-control-sm"
-          id="car_image_url"
-          required
-          {...formik.getFieldProps("car_image_url")}
-        />
       </div>
 
       <button
