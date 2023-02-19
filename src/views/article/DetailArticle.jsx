@@ -3,7 +3,11 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { DataContext, getData } from "../../helpers";
+import {
+  DataContext,
+  getData,
+  getDateNow,
+} from "../../helpers";
 import { useParams } from "react-router-dom";
 
 function DetailArticle() {
@@ -87,9 +91,7 @@ function DetailArticle() {
                     <span>
                       Published
                       <u className="m-1">
-                        {new Date().toLocaleDateString(
-                          navigator.language
-                        )}
+                        {getDateNow()}
                       </u>{" "}
                       by
                     </span>

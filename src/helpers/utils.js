@@ -57,6 +57,13 @@ function formatCurrency(currency) {
   }).format(currency);
 }
 
+function getDateNow() {
+  const date = new Date();
+  return new Intl.DateTimeFormat(navigator.language, {
+    dateStyle: "short",
+  }).format(date);
+}
+
 export {
   formatDate,
   formatCurrency,
@@ -67,4 +74,5 @@ export {
   setLocalStorage,
   getUserLoginLocalStorage,
   base_url,
+  getDateNow,
 };

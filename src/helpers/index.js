@@ -10,9 +10,11 @@ import {
   formatDate,
   base_url,
   formatCurrency,
+  getDateNow,
 } from "./utils";
 
 export {
+  getDateNow,
   base_url,
   formatDate,
   formatCurrency,

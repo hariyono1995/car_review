@@ -12,11 +12,7 @@ function Home() {
       <main className="my-5 container">
         <div className="container">
           <About />
-
           <Content />
-          {/* <!--Section: Content--> */}
-          {/* <Backup /> */}
-          {/* end back up */}
         </div>
       </main>
     </section>

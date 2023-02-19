@@ -58,17 +58,6 @@ function Routes() {
         },
       ],
     },
-
-    // {
-    //   path: "/articles",
-    //   element: <BlankLayout />,
-    //   children: [
-    //     {
-    //       path: "/articles/:id",
-    //       element: <DetailArticle />,
-    //     },
-    //   ],
-    // },
     {
       path: "/auth",
       element: <BlankLayout />,
