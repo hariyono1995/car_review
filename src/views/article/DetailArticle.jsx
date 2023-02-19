@@ -82,7 +82,7 @@ function DetailArticle() {
                 <div className="row align-items-center mb-4">
                   <div className="col-lg-6 text-center text-lg-start mb-3 m-lg-0">
                     <img
-                      src="https://mdbootstrap.com/img/Photos/Avatars/img (23).jpg"
+                      src="https://xsgames.co/randomusers/avatar.php?g=male"
                       className="rounded-5 shadow-1-strong me-2"
                       height="35"
                       alt=""

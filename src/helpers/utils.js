@@ -2,8 +2,9 @@ import axios from "axios";
 
 var base_url =
   // "https://final-beckend-nlih030xc-hariyono1995.vercel.app";
-  "https://final-beckend-64xyn1n13-hariyono1995.vercel.app";
+  // "https://final-beckend-64xyn1n13-hariyono1995.vercel.app";
 
+  "https://final-beckend-o4wu8cw4l-hariyono1995.vercel.app";
 async function getData(pathUrl, header = null) {
   console.log(`${base_url}/${pathUrl}`);
   return await axios.get(`${base_url}/${pathUrl}`, header);
@@ -57,11 +58,22 @@ function formatCurrency(currency) {
   }).format(currency);
 }
 
-function getDateNow() {
-  const date = new Date();
+function getDateNow(date = new Date()) {
+  // const date = new Date();
   return new Intl.DateTimeFormat(navigator.language, {
-    dateStyle: "short",
+    dateStyle: "medium",
   }).format(date);
+}
+
+function randomDate() {
+  const start = new Date(2010, 0, 1);
+  const end = new Date();
+  const randomdate = new Date(
+    start.getTime() +
+      Math.random() * (end.getTime() - start.getTime())
+  );
+
+  return getDateNow(randomdate);
 }
 
 export {
@@ -75,4 +87,5 @@ export {
   getUserLoginLocalStorage,
   base_url,
   getDateNow,
+  randomDate,
 };

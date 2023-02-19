@@ -7,14 +7,13 @@ import {
   DataContext,
   getData,
   getDateNow,
+  randomDate,
 } from "../../helpers";
-import CardTest from "../../component/base/CardTest";
-import FormLogin from "../../component/FormLogin";
+
 import { Comment } from "../../component/base";
 
 function Article() {
-  const { data, setData, setComments } =
-    useContext(DataContext);
+  const { data, setData } = useContext(DataContext);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -83,13 +82,13 @@ function Article() {
                 />
 
                 <div>
-                  <h5 className="card-title font-weight-bold mb-2">
+                  <h5 className="card-title font-weight-bold mb-2 text-capitalize">
                     {article.article_author}
                   </h5>
 
                   <p className="card-text">
                     <i className="far fa-clock pe-2"></i>
-                    {getDateNow()}
+                    {randomDate()}
                   </p>
                 </div>
               </div>

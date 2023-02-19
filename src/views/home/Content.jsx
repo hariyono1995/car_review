@@ -28,7 +28,7 @@ function Content() {
   const cardArticle =
     mounted &&
     data.length > 0 &&
-    data.map((article) => {
+    data.map((article, index) => {
       const { article_id, article_content, car, user } =
         article;
       const { car_image_url, car_name, car_price } = car;
@@ -41,12 +41,14 @@ function Content() {
           : article_content.substring(0, 250) + "...";
 
       return (
-        <CarArticle
-          id={article_id}
-          title={car_name}
-          content={articleContent}
-          imgUrl={car_image_url}
-        />
+        index <= 5 && (
+          <CarArticle
+            id={article_id}
+            title={car_name}
+            content={articleContent}
+            imgUrl={car_image_url}
+          />
+        )
       );
     });
 

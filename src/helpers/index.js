@@ -11,9 +11,11 @@ import {
   base_url,
   formatCurrency,
   getDateNow,
+  randomDate,
 } from "./utils";
 
 export {
+  randomDate,
   getDateNow,
   base_url,
   formatDate,

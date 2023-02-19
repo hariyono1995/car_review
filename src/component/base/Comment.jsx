@@ -1,42 +1,73 @@
-import React from "react";
+import React, {
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import FormReview from "./FormReview";
+import {
+  DataContext,
+  getData,
+  getDateNow,
+} from "../../helpers";
 
 function Comment({ articleId }) {
+  const [comments, setComments] = useState([]);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    getData(`review/articles/${articleId}`)
+      .then((res) => {
+        console.log(res);
+        setComments(res.data);
+        setMounted(true);
+      })
+      .catch((err) => console.log(err));
+  }, [comments]);
+
   return (
     <>
       <section className="row d-flex justify-content-center">
         <div className=" text-dark">
-          <div className="card-body p-4">
-            <div className="d-flex flex-start">
-              <img
-                className="rounded-circle shadow-1-strong me-3"
-                src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(26).webp"
-                alt="avatar"
-                width="60"
-                height="60"
-              />
-              <div>
-                <h6 className="fw-bold mb-1">
-                  Lara Stewart
-                </h6>
-                <div className="d-flex align-items-center mb-3">
-                  <p className="mb-0">March 15, 2021</p>
-                </div>
+          {(mounted && comments.length) > 0 &&
+            comments.map((item, index) => (
+              <div className="card-body p-2 my-3">
+                <>
+                  <div
+                    className="d-flex flex-start align-items-center pb-4"
+                    key={item.review_id}
+                  >
+                    <img
+                      className="rounded-circle shadow-1-strong me-3"
+                      src="https://xsgames.co/randomusers/avatar.php?g=female"
+                      alt="avatar"
+                      width="60"
+                      height="60"
+                    />
+                    <div>
+                      <h6 className="fw-bold text-capitalize">
+                        {item.complete_name}
+                      </h6>
+                      <div className="d-flex align-items-center ">
+                        <p className="mb-0">
+                          {getDateNow()}
+                        </p>
+                      </div>
 
-                <p className="mb-0">
-                  Contrary to popular belief, Lorem Ipsum is
-                  not simply random text. It has roots in a
-                  piece of classical Latin literature from
-                  45 BC, making it over 2000 years old.
-                  Richard McClintock, a Latin professor at
-                  Hampden-Sydney College in Virginia, looked
-                  up one of the more obscure Latin words,
-                  consectetur, from a Lorem Ipsum passage,
-                  and going through the cites.
-                </p>
+                      <p className="mb-0">
+                        {item.review_comment}
+                      </p>
+                    </div>
+                  </div>
+
+                  {index < comments.length - 1 && (
+                    <hr
+                      className="my-0"
+                      style={{ height: "1px;" }}
+                    />
+                  )}
+                </>
               </div>
-            </div>
-          </div>
+            ))}
         </div>
       </section>
 
