@@ -8,7 +8,7 @@ const initialValue = {
   review_comment: "",
 };
 
-function FormReview({ articleId }) {
+function FormReview({ articleId, setComments }) {
   const { userLogin, setMessage } = useContext(DataContext);
   const headers = useHeaders();
 
@@ -31,6 +31,7 @@ function FormReview({ articleId }) {
             success: res.data.message,
           });
 
+          setComments((prev) => [...prev, refactorPayload]);
           formik.resetForm();
         })
         .catch((error) => {

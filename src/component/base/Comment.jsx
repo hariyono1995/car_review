@@ -22,7 +22,7 @@ function Comment({ articleId }) {
         setMounted(true);
       })
       .catch((err) => console.log(err));
-  }, [comments]);
+  }, []);
 
   return (
     <>
@@ -71,7 +71,10 @@ function Comment({ articleId }) {
         </div>
       </section>
 
-      <FormReview articleId={articleId} />
+      <FormReview
+        articleId={articleId}
+        setComments={setComments}
+      />
     </>
   );
 }

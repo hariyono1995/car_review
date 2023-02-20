@@ -69,7 +69,7 @@ function Article() {
         <div className="container mb-4">
           <section
             className="mx-auto"
-            style={{ maxWidth: "43rem" }}
+            style={{ maxWidth: "35rem" }}
           >
             <div className="card">
               <div className="card-body d-flex flex-row">
