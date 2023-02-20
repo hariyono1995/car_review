@@ -1,7 +1,6 @@
 import React from "react";
 import { Carousel } from "../../component/common";
 import About from "./About";
-import Backup from "./Backup";
 import Content from "./Content";
 
 function Home() {

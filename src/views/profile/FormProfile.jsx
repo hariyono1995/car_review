@@ -47,7 +47,7 @@ function FormProfile() {
         },
       })
         .then((res) => {
-          console.log(res);
+          // console.log(res);
 
           setMessage({
             success: "Successfully created profile",
@@ -59,15 +59,13 @@ function FormProfile() {
           navigateTo("/profile");
         })
         .catch((error) => {
-          console.log(error);
+          // console.log(error);
 
           setMessage({
             success: null,
             error: error.response.data.message,
           });
         });
-
-      // console.log("submit form s", payload);
     },
   });
 

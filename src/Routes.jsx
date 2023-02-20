@@ -33,10 +33,7 @@ import { ErrorPage } from "./component/common";
 
 function Routes() {
   const { userLogin } = useContext(DataContext);
-
   const isLoggedIn = userLogin?.user_id !== undefined;
-
-  console.log(" check user is login ", isLoggedIn);
 
   const router = createBrowserRouter([
     {

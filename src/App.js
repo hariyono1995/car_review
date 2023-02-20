@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { ToastContainer, toast } from "react-toastify";
 
 import Routes from "./Routes";

@@ -12,6 +12,7 @@ import {
 import Home from "./home/Home";
 import Article from "./article/Article";
 import DetailArticle from "./article/DetailArticle";
+
 export {
   Home,
   Article,
